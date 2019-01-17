@@ -1,0 +1,21 @@
+{
+  "name": "react-string-clamp",
+  "version": "0.0.0",
+  "description": "This library allows you to set up clamped text block for your project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "string",
+    "clamp",
+    "ellipsis",
+    "text",
+    "overflow",
+    "multiline",
+    "hide"
+  ],
+  "author": "Andrey Khar'kovets",
+  "license": "MIT"
+}
