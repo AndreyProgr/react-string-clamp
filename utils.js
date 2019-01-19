@@ -81,7 +81,7 @@ function clampLines(text, element, {
     return clampedText;
   }
 
-  let decrementCoeff = maxHeight / testElHeight + 0.35;
+  let decrementCoeff = (maxHeight / testElHeight) + 0.35;
   while (testElHeight > maxHeight && clampedText.length) {
     clampedText = clamp(text, decrementCoeff, splitter, reverse);
     clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;

@@ -1,6 +1,6 @@
 # react-string-clamp
 
-![](https://img.shields.io/npm/l/react-string-clamp.svg?colorB=%23) ![](https://img.shields.io/github/repo-size/a-harkovets/react-string-clamp.svg) ![](https://img.shields.io/npm/dt/react-string-clamp.svg)
+[![Licence](https://img.shields.io/npm/l/react-string-clamp.svg?colorB=%23)](https://www.npmjs.com/package/react-string-clamp) [![Repo Size](https://img.shields.io/github/repo-size/a-harkovets/react-string-clamp.svg)](https://github.com/a-harkovets/react-string-clamp) [![Downloads](https://img.shields.io/npm/dt/react-string-clamp.svg)](https://www.npmjs.com/package/react-string-clamp) [![Build Status](https://travis-ci.org/a-harkovets/react-string-clamp.svg?branch=master)](https://travis-ci.org/a-harkovets/react-string-clamp)
 
 This library allows you to set up text clamp module.
 
