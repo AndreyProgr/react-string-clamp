@@ -1,10 +1,12 @@
 # react-string-clamp
 
+![](https://img.shields.io/npm/l/react-string-clamp.svg?colorB=%23) ![](https://img.shields.io/github/repo-size/a-harkovets/react-string-clamp.svg) ![](https://img.shields.io/npm/dt/react-string-clamp.svg)
+
 This library allows you to set up text clamp module.
 
  - [Source code](https://github.com/a-harkovets/react-string-clamp)
  - [Changelog](https://github.com/a-harkovets/react-string-clamp/blob/master/changelog.md)
-
+#
 Main features:
 
  - Automatically runs re-render if component size changed.
@@ -14,12 +16,12 @@ Main features:
  - Customizable ellipsis.
  - Deletes punctuation characters before adding ellipsis.
  - Wide range of settings.
-
+#
 ### Installation (npm)
 ```
 npm install react-string-clamp --save
 ```
-
+#
 ### Usage
 
 Import `TextClamp` component.
@@ -36,7 +38,7 @@ Add `TextClamp` component to your code.
   ... // optional props
   />
 ```
-
+#
 ### Optional props
  - `styles` - object of inline-styles. Default: `{}`.
 
@@ -62,7 +64,7 @@ Add `TextClamp` component to your code.
 
  - `punctuaionCharsAdditional` - array. Allows you to set additional punctuation chars array. Default: `[]`.
 
-#
+
 License
 -
 
