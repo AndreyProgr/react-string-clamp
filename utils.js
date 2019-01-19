@@ -1,23 +1,45 @@
 function delLastChars(str, chars = [], reverse = false) {
-  let clampedStr = String(str);
-  while (chars.includes(clampedStr[
-    reverse ? 0 : clampedStr.length - 1
-  ])) {
-    clampedStr = reverse
-      ? clampedStr.slice(1)
-      : clampedStr.slice(0, clampedStr.length - 1);
+  let clearedStr = String(str);
+  let finishCycle = true;
+
+  if (reverse) {
+    while (finishCycle) {
+      finishCycle = false;
+      for (let i = 0; i < chars.length; i++) {
+        if (clearedStr.slice(0, chars[i].length) === chars[i]) {
+          clearedStr = clearedStr.slice(chars[i].length, clearedStr.length);
+          finishCycle = true;
+        }
+      }
+    }
+
+  } else {
+    while (finishCycle) {
+      finishCycle = false;
+      for (let i = 0; i < chars.length; i++) {
+        if (clearedStr.slice(clearedStr.length - chars[i].length) === chars[i]) {
+          clearedStr = clearedStr.slice(0, clearedStr.length - chars[i].length);
+          finishCycle = true;
+        }
+      }
+    }
   }
 
-  return clampedStr;
+  return clearedStr;
 }
 
 
-function clamp(text, coeff, { splitter, reverse }) {
+function clamp(text, coeff, splitter = '', reverse = false) {
 
   const textChunks = String(text).split(splitter);
+  const sliceIndx = Math.floor(textChunks.length * coeff);
+  if (sliceIndx < 1) {
+    return '';
+  }
+
   const clampedTextChunks = reverse
-    ? textChunks.slice(-Math.floor(textChunks.length * coeff))
-    : textChunks.slice(0, Math.floor(textChunks.length * coeff));
+    ? textChunks.slice(-sliceIndx)
+    : textChunks.slice(0, sliceIndx);
 
   return clampedTextChunks.join(splitter);
 }
@@ -61,7 +83,7 @@ function clampLines(text, element, {
 
   let decrementCoeff = maxHeight / testElHeight + 0.35;
   while (testElHeight > maxHeight && clampedText.length) {
-    clampedText = clamp(text, decrementCoeff, { splitter, reverse });
+    clampedText = clamp(text, decrementCoeff, splitter, reverse);
     clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;
 
     testEl.innerHTML = reverse
@@ -80,7 +102,6 @@ function clampLines(text, element, {
     : `${prefix}${clampedText}${ellipsis}`;
 }
 
-
-export default {
+module.exports = {
   delLastChars, clamp, clampLines, createSimilarEl
 };
