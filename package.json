@@ -17,5 +17,9 @@
     "hide"
   ],
   "author": "Andrey Khar'kovets",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
 }
