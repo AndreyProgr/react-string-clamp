@@ -25,9 +25,7 @@ class TextClamp extends PureComponent {
 
   componentDidMount() {
     window.aaa = StrClamper;
-    setTimeout(() => {
-      this.clampText();
-    }, 5);
+    this.clampText();
     window.addEventListener('resize', this.handleResize);
   }
 
@@ -47,7 +45,7 @@ class TextClamp extends PureComponent {
   }
 
   clampText() {
-    if (!this) {
+    if (!this || !this.textContainer.current) {
       return;
     }
     const {
