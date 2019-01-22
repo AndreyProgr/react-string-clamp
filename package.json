@@ -1,7 +1,7 @@
 {
   "name": "react-string-clamp",
-  "version": "0.1.0",
-  "description": "This library allows you to set up clamped text block for your project.",
+  "version": "0.1.1",
+  "description": "This library provides text clamping ReactJS-component.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
