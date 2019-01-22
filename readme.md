@@ -4,7 +4,7 @@
 
 This library allows you to set up text clamp module.
 
- - [Source code](https://github.com/a-harkovets/react-string-clamp)
+ - [Source code](https://github.com/a-harkovets/react-string-clamp) (master branch is used for releases)
  - [Changelog](https://github.com/a-harkovets/react-string-clamp/blob/master/changelog.md)
 #
 Main features:
