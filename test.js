@@ -17,6 +17,7 @@ const runTests = (tests = [], func) => {
 
 // tests
 
+
 const delLastCharsTests = [
   {
     name: 'Test 1 - simple and common case',
@@ -64,6 +65,43 @@ const delLastCharsTests = [
     name: 'Test 7 - reverse, multi chars, all chars are the same',
     args: [
       '______________', ['_'], true
+    ],
+    result: ''
+  },
+  {
+    name: 'Test 8 - just a long text',
+    args: [
+      ',,,,,,,,,,,,.........../////////////////,,,,,,,,........//////////,./.,./..........,/,.,,' +
+      ',./,/./,/./,/./,/./,/./,//./,/./,////./,,,,,,,,,,,,,,,.............................,//.,/' +
+      ',,,,,,,,,,,,.........../////////////////,,,,,,,,........//////////,./.,./..........,/,.,,' +
+      ',./,/./,/./,/./,/./,/./,//./,/./,////./,,,,,,,,,,,,,,,.............................,//.,/' +
+      ',,,,,,,,,,,,.........../////////////////,,,,,,,,........//////////,./.,./..........,/,.,,' +
+      ',./,/./,/./,/./,/./,/./,//./,/./,////./,,,,,,,,,,,,,,,.............................,//.,/' +
+      ',,,,,,,,,,,,.........../////////////////,,,,,,,,........//////////,./.,./..........,/,.,,' +
+      ',./,/./,/./,/./,/./,/./,//./,/./,////./,,,,,,,,,,,,,,,.............................,//.,/' +
+      ',,,,,,,,,,,,.........../////////////////,,,,,,,,........//////////,./.,./..........,/,.,,' +
+      '"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""' +
+      '"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""' +
+      '"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""' +
+      ',,,,,,,,,,,,.........../////////////////,,,,,,,,........//////////,./.,./..........,/,.,,',
+      [
+        ',', '.', '/', 'q@', '*!', '#$', '--', '"', '+=', 'df', 'ddd', '----', 'ccc', '{', '}'
+      ],
+      true
+    ],
+    result: ''
+  },
+  {
+    name: 'Test 9 - incorrect some types of arguments',
+    args: [
+      undefined, ['u', 'nd', '}'], 'true'
+    ],
+    result: 'efined'
+  },
+  {
+    name: 'Test 10 - incorrect types of all arguments',
+    args: [
+      NaN, 'Na', 0
     ],
     result: ''
   }
@@ -116,9 +154,84 @@ const clampTests = [
   {
     name: 'Test 7 - 99% of string ("")',
     args: [
-      'Just a piece of text.', 0.99, '-', true
+      'Just a piece of text.', 0.99, '-'
     ],
     result: ''
+  },
+  {
+    name: 'Test 8 - coeff = 2 (max - 1)',
+    args: [
+      'Just a piece of text.', 2, ' ', true
+    ],
+    result: 'Just a piece of text.'
+  },
+  {
+    name: 'Test 9 - coeff = -0.5 (min - 0)',
+    args: [
+      'Just a piece of text.', -0.5, ' ', true
+    ],
+    result: ''
+  },
+  {
+    name: 'Test 10 - incorrect types of arguments',
+    args: [
+      {}, NaN, ' ', false
+    ],
+    result: ''
+  }
+];
+
+
+const constructStringTests = [
+  {
+    name: 'Test 1 - empty args',
+    args: [],
+    result: ''
+  },
+  {
+    name: 'Test 2 - just a text',
+    args: ['Some text.'],
+    result: 'Some text.'
+  },
+  {
+    name: 'Test 3 - correct usage',
+    args: ['Some text', '...', ' - '],
+    result: ' - Some text...'
+  },
+  {
+    name: 'Test 4 - correct usage',
+    args: ['.', '.', '.'],
+    result: '...'
+  },
+  {
+    name: 'Test 5 - correct usage, reverse',
+    args: ['.', '.', '.', true],
+    result: '...'
+  },
+  {
+    name: 'Test 6 - correct usage, reverse',
+    args: ['some text', '...', '!', true],
+    result: '...some text!'
+  },
+  {
+    name: 'Test 7 - incorrect argument',
+    args: ['Some text', NaN, ' - '],
+    result: ' - Some textNaN'
+  },
+  {
+    name: 'Test 8 - incorrect argument',
+    args: ['Some text', undefined, ' - '],
+    result: ' - Some text'
+  },
+  {
+    name: 'Test 9 - incorrect arguments',
+    args: [null, false, ',...'],
+    result: ',...nullfalse'
+  },
+  {
+    name: 'Test 10 - incorrect all arguments, reverse',
+    args: [-99, {}, ~true, true],
+    result: '[object Object]-99-2'
   }
 ];
 
@@ -131,4 +244,8 @@ describe('#delLastChars()', () => {
 
 describe('#clamp()', () => {
   runTests(clampTests, utils.clamp);
+});
+
+describe('#constructString()', () => {
+  runTests(constructStringTests, utils.constructString);
 });
