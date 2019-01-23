@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+# v0.2.0
+
+ - Code optimization & refactoring.
+ - Improved mocha-tests.
+
 # v0.1.2
 
  - Changelog update (added missed 0.1.1 version).

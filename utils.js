@@ -1,31 +1,26 @@
-function delLastChars(str, chars = [], reverse = false) {
-  let clearedStr = String(str);
-  let finishCycle = true;
+function delLastChars(sourceString, chars = [], reverse = false) {
+  let finalString = String(sourceString);
+  let nextIteration = true;
 
-  if (reverse) {
-    while (finishCycle) {
-      finishCycle = false;
-      for (let i = 0; i < chars.length; i++) {
-        if (clearedStr.slice(0, chars[i].length) === chars[i]) {
-          clearedStr = clearedStr.slice(chars[i].length, clearedStr.length);
-          finishCycle = true;
-        }
-      }
-    }
+  while (nextIteration) {
+    nextIteration = false;
+    for (let i = 0; i < chars.length; i++) {
 
-  } else {
-    while (finishCycle) {
-      finishCycle = false;
-      for (let i = 0; i < chars.length; i++) {
-        if (clearedStr.slice(clearedStr.length - chars[i].length) === chars[i]) {
-          clearedStr = clearedStr.slice(0, clearedStr.length - chars[i].length);
-          finishCycle = true;
-        }
+      const substring = reverse
+        ? finalString.slice(0, chars[i].length)
+        : finalString.slice(finalString.length - chars[i].length);
+
+      if (substring === chars[i]) {
+        finalString = reverse
+          ? finalString.slice(chars[i].length, finalString.length)
+          : finalString = finalString.slice(0, finalString.length - chars[i].length);
+
+        nextIteration = true;
       }
     }
   }
 
-  return clearedStr;
+  return finalString;
 }
 
 
