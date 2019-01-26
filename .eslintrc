@@ -1,9 +1,13 @@
 {
   "parserOptions": {
-    "ecmaVersion": 2017,
     "sourceType": "module",
+    "ecmaVersion": 2018,
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+      "destructuring": true,
+      "spread": true,
+      "restParams": true,
+      "impliedStrict": true,
+      "jsx": true
     }
   },
   "env": {
@@ -58,7 +62,7 @@
     "no-empty-pattern": "warn",
     "no-extra-bind": "warn",
     "no-fallthrough": "warn",
-    "no-implicit-coercion": ["warn", { "allow": ["!!"] } ],
+    "no-implicit-coercion": ["warn", { "allow": ["!!"] }],
     "no-implicit-globals": "warn",
     "no-implied-eval": "warn",
     "no-lone-blocks": "warn",
@@ -109,10 +113,21 @@
     "eol-last": "warn",
     "func-call-spacing": "warn",
     "func-name-matching": "warn",
-    "id-length": ["warn", { "min": 3, "max": 40, "exceptions": ["i", "j", "k", "id", "ua", "en", "ru", "de", "_t"] }],
-    "id-match": ["warn", "^[a-zA-Z]+([A-Z][a-z]+)*$", {"onlyDeclarations": true}],
+    "id-length": [
+      "warn",
+      {
+        "min": 3,
+        "max": 40,
+        "exceptions": ["i", "j", "k", "id", "ua", "en", "ru", "de", "_t"]
+      }
+    ],
+    "id-match": [
+      "warn",
+      "^[a-zA-Z]+([A-Z][a-z]+)*$",
+      { "onlyDeclarations": true }
+    ],
     "implicit-arrow-linebreak": "warn",
-    "indent": ["warn", 2, {"SwitchCase": 1}],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
     "jsx-quotes": ["warn", "prefer-single"],
     "key-spacing": "warn",
     "keyword-spacing": "warn",
@@ -120,10 +135,16 @@
     "lines-between-class-members": "warn",
     "max-depth": ["warn", { "max": 5 }],
     "max-len": ["warn", { "code": 100 }],
-    "max-lines": ["warn", {"max": 140, "skipBlankLines": true, "skipComments": true}],
-    "max-lines-per-function": ["warn", {"max": 60, "skipBlankLines": true, "skipComments": true}],
-    "max-params": ["warn", {"max": 7}],
-    "max-statements": ["warn", {"max": 40}],
+    "max-lines": [
+      "warn",
+      { "max": 140, "skipBlankLines": true, "skipComments": true }
+    ],
+    "max-lines-per-function": [
+      "warn",
+      { "max": 60, "skipBlankLines": true, "skipComments": true }
+    ],
+    "max-params": ["warn", { "max": 7 }],
+    "max-statements": ["warn", { "max": 40 }],
     "max-statements-per-line": ["warn", { "max": 2 }],
     "multiline-comment-style": "warn",
     "multiline-ternary": ["warn", "always-multiline"],
@@ -142,7 +163,10 @@
     "no-nested-ternary": "warn",
     "no-new-object": "warn",
     "no-trailing-spaces": "warn",
-    "no-underscore-dangle": ["warn", { "allow": ["_t"], "allowAfterThis": true }],
+    "no-underscore-dangle": [
+      "warn",
+      { "allow": ["_t"], "allowAfterThis": true }
+    ],
     "object-curly-spacing": ["warn", "always"],
     "one-var-declaration-per-line": "warn",
     "operator-assignment": "warn",
@@ -176,7 +200,7 @@
     "prefer-destructuring": "warn",
     "prefer-rest-params": "warn",
     "prefer-spread": "warn",
-    "prefer-template": "off",
+    "prefer-template": "warn",
     "rest-spread-spacing": "warn",
     "symbol-description": "warn",
     "template-curly-spacing": "warn",
