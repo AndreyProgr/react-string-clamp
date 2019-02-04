@@ -66,8 +66,63 @@ function constructString(str = '', ellipsis = '', prefix = '', reverse = false) 
 }
 
 
+// normalize param
+function normalizeValue(value, rule = 'number') {
+  switch (rule) {
+    case 'number':
+      if (!parseFloat(value)) {
+        return NaN;
+      }
+      return Number(value);
+    default:
+      return value;
+  }
+}
+
+
+// normalize arguments types
+function normalizeObj(obj) {
+  const normalizedObj = { ...obj };
+  const keys = Object.keys(normalizedObj);
+
+  for (const key in keys) {
+    normalizedObj[keys[key]] = normalizeValue(normalizedObj[keys[key]]);
+  }
+  return normalizedObj;
+}
+
+
+function clampLines(
+  srcStr = '', srcElement = 'div', srcLines = 1, srcEllipsis = '...', srcSplitter = ' ',
+  srcPunctuation = [
+    ',', '/', '\\', '&', '.', '-', '!', '?', ' ', ';', ':',
+    String.fromCharCode(13), String.fromCharCode(10), String.fromCharCode(9)
+  ],
+  srcGap = 0.01, srcReverse = false, srcPunctuationAdditional = []
+) {
+  let str, element, lines, ellipsis, splitter,
+    punctuation, gap, reverse, punctuationChars;
+
+  if (srcStr === undefined) {
+    console.error('React-string-clamp error: string is undefined!');
+    return;
+  }
+  if (typeof srcStr !== 'string' && typeof srcStr !== 'number') {
+    console.error(
+      `React-string-clamp error: string type is ${typeof srcStr}. Expected string or number.`
+    );
+    return;
+  }
+
+  return clampLinesKernel(
+    str, element, lines, ellipsis, splitter,
+    punctuation, gap, reverse, punctuationChars
+  );
+}
+
+
 // returns clamped string for a DOM-element
-function clampLines(text, element, {
+function clampLinesKernel(text, element, {
   lines, ellipsis, splitter, punctuation, gap, reverse, prefix, punctuationChars
 }) {
 
@@ -107,5 +162,6 @@ function clampLines(text, element, {
 }
 
 module.exports = {
-  delLastChars, clamp, clampLines, createSimilarEl, constructString
+  delLastChars, clamp, clampLines, createSimilarEl, constructString,
+  normalizeObj, normalizeValue
 };

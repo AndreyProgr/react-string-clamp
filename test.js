@@ -1,12 +1,14 @@
-const utils = require('./utils.js');
+const utils = require('./src/utils.js');
 const assert = require('assert');
+
+const runNormalizeArgsTests = require('./tests/argNormalize');
 
 const runTests = (tests = [], func) => {
   tests.forEach(config => {
 
     it(config.name, () => {
       assert.equal(
-        func(...config.args),
+        config.wrapFunc ? config.wrapFunc(func(...config.args)) : func(...config.args),
         config.result
       );
     });
@@ -236,6 +238,36 @@ const constructStringTests = [
 ];
 
 
+const normalizeValueTests = [
+  {
+    name: 'Test 1.1 - number normalize',
+    args: ['10'],
+    result: 10
+  },
+  {
+    name: 'Test 1.2 - number normalize',
+    args: ['10.202'],
+    result: 10.202
+  },
+  {
+    name: 'Test 1.3 - number normalize',
+    args: ['010.'],
+    result: 10
+  },
+  {
+    name: 'Test 1.4 - number normalize',
+    args: ['-099990.2'],
+    result: -99990.2
+  },
+  {
+    name: 'Test 1.5 - number normalize',
+    args: [''],
+    result: true,
+    wrapFunc: result => isNaN(result)
+  }
+];
+
+
 // let's go!
 
 describe('#delLastChars()', () => {
@@ -249,3 +281,9 @@ describe('#clamp()', () => {
 describe('#constructString()', () => {
   runTests(constructStringTests, utils.constructString);
 });
+
+describe('#normalizeValue()', () => {
+  runTests(normalizeValueTests, utils.normalizeValue);
+});
+
+runNormalizeArgsTests();
