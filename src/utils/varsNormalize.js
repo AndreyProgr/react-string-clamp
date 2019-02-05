@@ -74,7 +74,11 @@ function normalizeValue(value, rule, acceptableTypes = '*', strict = true, value
 }
 
 function isNumber(value) {
-  return !isNaN(Number(value)) && value !== '' && typeof value !== 'boolean';
+  const typeOf = typeof value;
+  return (
+    typeOf !== 'boolean' && typeOf !== 'object' && typeOf !== 'symbol'
+    && !isNaN(Number(value)) && value !== '' && !String(value).includes(' ')
+  );
 }
 
 function isGreaterThan(value, max) {

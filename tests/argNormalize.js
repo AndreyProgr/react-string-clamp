@@ -227,9 +227,15 @@ const validateValueNumberTests = [
 
 
 const testGeneratorsParams = {
-  number: {
-    mockIntegersAmount: 2,
-    mockFloatsAmount: 2
+  numberWithoutOptions: {
+    mockIntegersAmount: 10,
+    mockFloatsAmount: 10,
+    additionalTrueValues: ['0xFF', '01237'],
+    falseValues: [
+      NaN, false, true, undefined, null, '', [], ['arr'], [1], {}, { an: 'object' }, () => null,
+      Symbol('symbol'), 'string', '001f', '""', ' ', 'false', 'true', 'null', 'undefined', '[]', '{}',
+      '\'', '/'
+    ]
   }
 }
 
@@ -250,16 +256,71 @@ function getRandInteger() {
   return Math.floor(randNum);
 }
 
+// unsigned
+function getArrayOfRandIntegers(amount = 1) {
+  let randInts = []
+  for (let i = 0; i < amount; i++) {
+    randInts.push(getRandInteger())
+  }
+  return randInts;
+}
 
-function getTestsForNumber() {
-  const params = testGeneratorsParams.number;
-  const randomValues = [];
+// unsigned
+function getArrayOfRandFloats(amount = 1) {
+  let randInts = []
+  for (let i = 0; i < amount; i++) {
+    randInts.push(getRandFloat())
+  }
+  return randInts;
+}
+
+
+function argsArrayToString(args = []) {
+  let stringifiedArgs = '';
+  for (let i = 0; i < args.length; i++) {
+    const typeOf = typeof args[i];
+
+    switch (typeOf) {
+      case 'string':
+        stringifiedArgs = stringifiedArgs + '"' + args[i] + '"';
+        break;
+      case 'object':
+        if (args[i] && args[i].toString() === '[object Object]') {
+          stringifiedArgs = stringifiedArgs + JSON.stringify(args[i]);
+        } else if (args[i] && Array.isArray(args[i])) {
+          stringifiedArgs = stringifiedArgs + '[' + argsArrayToString(args[i]) + ']';
+        } else if (args[i] === null) {
+          stringifiedArgs = stringifiedArgs + 'null';
+        }
+        break;
+      default:
+        stringifiedArgs = stringifiedArgs + String(args[i]);
+        break;
+    }
+
+    if (i < args.length - 1) {
+      stringifiedArgs = stringifiedArgs + ', ';
+    }
+  }
+
+  return stringifiedArgs;
+}
+
+
+function createTest(indx, args, result) {
+  const test = { args, result };
+  test.name = 'Test ' + indx + ', args: (' + argsArrayToString(args) + '), expect: (' + result + ')';
+  return test;
+}
+
+
+function getTestsForNumbersValidation() {
+  const params = testGeneratorsParams.numberWithoutOptions;
+  let randomValues = [
+    ...getArrayOfRandFloats(params.mockIntegersAmount), ...getArrayOfRandIntegers(params.mockIntegersAmount)
+  ];
   const tests = [];
 
-  // random integers
-  for (let i = 0; i < params.mockIntegersAmount; i++) {
-    randomValues.push(getRandInteger());
-  }
   // random floats
   for (let i = 0; i < params.mockFloatsAmount; i++) {
     randomValues.push(getRandFloat());
@@ -269,22 +330,29 @@ function getTestsForNumber() {
   for (let i = 0; i < randomValues.length; i++) {
     for (let j = 0; j < 2 ; j++) {
       for (let k = 0; k < 2 ; k++) {
-        const test = {};
         const multiplier = j ? -1 : 1;
-        test.args = k
-          ? [String(Number(randomValues[i] * multiplier)), 'number']
-          : [Number(randomValues[i] * multiplier), 'number'];
-        test.result = true;
-        const argStr = k
-          ? '"' + Number(randomValues[i] * multiplier) + '"'
+        const value = k
+          ? String(Number(randomValues[i] * multiplier))
           : Number(randomValues[i] * multiplier);
-        test.name =
-          'Test ' + (tests.length + 1) +
-          ', args: [' + argStr +
-          ', "number"], expect: true';
-        tests.push(test);
+        tests.push(createTest(
+          tests.length + 1, [value, 'number'], true
+        ));
       }
     }
+  }
+
+  // true additional
+  for (let i = 0; i < params.additionalTrueValues.length; i++) {
+    tests.push(createTest(
+      tests.length + 1, [params.additionalTrueValues[i], 'number'], true
+    ));
+  }
+
+  // false
+  for (let i = 0; i < params.falseValues.length; i++) {
+    tests.push(createTest(
+      tests.length + 1, [params.falseValues[i], 'number'], false
+    ));
   }
 
   return tests;
@@ -296,7 +364,7 @@ const run = () => {
     runTests(validateValueNumberTests, normalizeFunctions.validateValue);
   });
   describe('#argsNormalize.validateValue() - generated', () => {
-    runTests(getTestsForNumber(), normalizeFunctions.validateValue);
+    runTests(getTestsForNumbersValidation(), normalizeFunctions.validateValue);
   });
 };
 
