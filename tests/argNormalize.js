@@ -226,9 +226,77 @@ const validateValueNumberTests = [
 ];
 
 
+const testGeneratorsParams = {
+  number: {
+    mockIntegersAmount: 2,
+    mockFloatsAmount: 2
+  }
+}
+
+// unsigned
+function getRandFloat() {
+  let exp = Math.floor(Math.random() * 18);
+  if (Math.floor(Math.random() * 10 + 1) > 5) {
+    exp = exp * -1;
+  }
+  let randNum = Math.random() * Number('1e' + exp);
+  return randNum;
+}
+
+// unsigned
+function getRandInteger() {
+  let exp = Math.floor(Math.random() * 18);
+  let randNum = Math.random() * Number('1e' + exp);
+  return Math.floor(randNum);
+}
+
+
+function getTestsForNumber() {
+  const params = testGeneratorsParams.number;
+  const randomValues = [];
+  const tests = [];
+
+  // random integers
+  for (let i = 0; i < params.mockIntegersAmount; i++) {
+    randomValues.push(getRandInteger());
+  }
+  // random floats
+  for (let i = 0; i < params.mockFloatsAmount; i++) {
+    randomValues.push(getRandFloat());
+  }
+
+  // true
+  for (let i = 0; i < randomValues.length; i++) {
+    for (let j = 0; j < 2 ; j++) {
+      for (let k = 0; k < 2 ; k++) {
+        const test = {};
+        const multiplier = j ? -1 : 1;
+        test.args = k
+          ? [String(Number(randomValues[i] * multiplier)), 'number']
+          : [Number(randomValues[i] * multiplier), 'number'];
+        test.result = true;
+        const argStr = k
+          ? '"' + Number(randomValues[i] * multiplier) + '"'
+          : Number(randomValues[i] * multiplier);
+        test.name =
+          'Test ' + (tests.length + 1) +
+          ', args: [' + argStr +
+          ', "number"], expect: true';
+        tests.push(test);
+      }
+    }
+  }
+
+  return tests;
+}
+
+
 const run = () => {
   describe('#argsNormalize.validateValue()', () => {
     runTests(validateValueNumberTests, normalizeFunctions.validateValue);
+  });
+  describe('#argsNormalize.validateValue() - generated', () => {
+    runTests(getTestsForNumber(), normalizeFunctions.validateValue);
   });
 };
 

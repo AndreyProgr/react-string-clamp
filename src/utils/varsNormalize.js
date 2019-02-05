@@ -74,7 +74,7 @@ function normalizeValue(value, rule, acceptableTypes = '*', strict = true, value
 }
 
 function isNumber(value) {
-  return !isNaN(Number(value)) && value !== '';
+  return !isNaN(Number(value)) && value !== '' && typeof value !== 'boolean';
 }
 
 function isGreaterThan(value, max) {
@@ -96,7 +96,18 @@ function validateValue(value, rule, options = {}) {
         !isNumber(value)
         || (isNumber(options.min) && isLessThan(value, options.min))
         || (isNumber(options.max) && isGreaterThan(value, options.max))
-        || typeof value === 'boolean'
+      ) {
+        return false;
+      }
+      return true;
+
+      // number
+    case 'unsigned number':
+      if (
+        !isNumber(value)
+        || (isNumber(options.min) && isLessThan(value, options.min))
+        || (isNumber(options.max) && isGreaterThan(value, options.max))
+        || Math.abs(Number(value)) !== Number(value)
       ) {
         return false;
       }
@@ -108,7 +119,6 @@ function validateValue(value, rule, options = {}) {
         !isNumber(value)
         || (isNumber(options.min) && isLessThan(value, options.min))
         || (isNumber(options.max) && isGreaterThan(value, options.min))
-        || typeof value === 'boolean'
         || Math.floor(Number(value)) !== Number(value)
       ) {
         return false;
@@ -118,10 +128,9 @@ function validateValue(value, rule, options = {}) {
 
     // unset
     default:
-      break;
+      return false;
 
   }
-  return result;
 }
 
 module.exports = { str, element, lines, normalizeValue, validateValue };
