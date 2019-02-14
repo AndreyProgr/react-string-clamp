@@ -9,13 +9,14 @@ This library allows you to set up text clamp module.
 #
 Main features:
 
+ - Easy to set up and usage - only one required property and 2-3 optional will cover most of use cases.
  - Automatically runs re-render if component size changed.
  - Supports reverse clamping.
- - Allows you to add your custom css-styles.
+ - Allows you to add any custom css-styles.
  - Supports any kind of string splitting rules (words, letters, dashes, etc.).
  - Customizable ellipsis.
  - Deletes punctuation characters before adding ellipsis.
- - Wide range of settings.
+ - Wide range of another optional settings.
 #
 ### Installation (npm)
 ```
@@ -34,7 +35,7 @@ Add `TextClamp` component to your code.
 
 ```
 <TextClamp
-  text="Long, long string..."
+  text="Any long string..."
   ... // optional props
   />
 ```

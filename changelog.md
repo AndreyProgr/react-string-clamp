@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 # v0.2.0
 
-- Removed prop prefix.
+- Removed «prefix» prop.
 - Fixed bug (minimal width) witch occured when trying to place TextClamp component inside a parent flex container.
 - Added Babel. Now built package is used ES5 (ES6+ code in unsupported by some common used plugins and libraries, as, for example UglifyJs).
 - Added ability to rewrite two default inline-style rules.
