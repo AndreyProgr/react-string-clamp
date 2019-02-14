@@ -10,7 +10,6 @@ class TextClamp extends PureComponent {
     };
     this.textContainer = React.createRef();
     this.handleResize = this.checkForResize.bind(this);
-    window.qqq = this;
   }
 
   render() {
