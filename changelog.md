@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+# v0.2.0
+
+- Removed prop prefix.
+
 # v0.1.3
 
 - Code optimization & refactoring.

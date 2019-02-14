@@ -49,7 +49,7 @@ class TextClamp extends PureComponent {
     }
     const {
       text, lines, ellipsis, splitter, punctuation, gap, reverse,
-      prefix, punctuationChars, punctuaionCharsAdditional
+      punctuationChars, punctuaionCharsAdditional
     } = this.props;
     if (!text) {
       return;
@@ -61,7 +61,7 @@ class TextClamp extends PureComponent {
         : [];
 
     const clampedText = StrClamper.clampLines(text, this.textContainer.current, {
-      ellipsis, splitter, punctuation, reverse, prefix,
+      ellipsis, splitter, punctuation, reverse,
       gap:
         Number(gap) >= 0 ? Number(gap) : 0.01,
       punctuationChars:
@@ -80,7 +80,6 @@ TextClamp.defaultProps = {
   punctuation: true,
   reverse: false,
   gap: 0.01,
-  prefix: '',
   splitter: ' ',
   element: 'div',
   punctuationChars: [
@@ -103,7 +102,6 @@ try {
     punctuation: PropTypes.bool,
     reverse: PropTypes.bool,
     gap: PropTypes.number,
-    prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     element: PropTypes.string,
     punctuationChars: PropTypes.array,
     punctuaionCharsAdditional: PropTypes.array,

@@ -56,13 +56,13 @@ function createSimilarEl(sample, styles = {}) {
 
 
 // Adds ellipsis & prefix to string
-function constructString(str = '', ellipsis = '', prefix = '', reverse = false) {
+function constructString(str = '', ellipsis = '', reverse = false) {
   if (str === '') {
     return '';
   }
   return reverse
-    ? `${ellipsis}${str}${prefix}`
-    : `${prefix}${str}${ellipsis}`;
+    ? `${ellipsis}${str}`
+    : `${str}${ellipsis}`;
 }
 
 
@@ -94,7 +94,7 @@ function normalizeObj(obj) {
 
 // returns clamped string for a DOM-element
 function clampLines(text, element, {
-  lines, ellipsis, splitter, punctuation, gap, reverse, prefix, punctuationChars
+  lines, ellipsis, splitter, punctuation, gap, reverse, punctuationChars
 }) {
 
   const maxHeight = 3 * Number(lines);
@@ -107,7 +107,7 @@ function clampLines(text, element, {
   element.appendChild(testEl);
 
   let clampedText = text;
-  testEl.innerHTML = constructString(clampedText, ellipsis, prefix, reverse);
+  testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
 
   let testElHeight = testEl.clientHeight;
   if (testElHeight <= maxHeight) {
@@ -120,7 +120,7 @@ function clampLines(text, element, {
     clampedText = clamp(text, decrementCoeff, splitter, reverse);
     clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;
 
-    testEl.innerHTML = constructString(clampedText, ellipsis, prefix, reverse);
+    testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
     testElHeight = testEl.clientHeight;
     decrementCoeff -= 0.025;
   }
@@ -129,7 +129,7 @@ function clampLines(text, element, {
   clampedText = punctuation
     ? delLastChars(clampedText, punctuationChars, reverse)
     : clampedText;
-  return constructString(clampedText, ellipsis, prefix, reverse);
+  return constructString(clampedText, ellipsis, reverse);
 }
 
 module.exports = {

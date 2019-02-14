@@ -46,8 +46,6 @@ Add `TextClamp` component to your code.
 
  - `ellipsis` - ellipsis. Default: `"..."`.
 
- - `prefix` - prefix for text. Default: `""`.
-
  - `reverse` - boolean. If enabled text will be clamped from the other side. Default: `false`.
 
  - `gap` - sets tolerance in range from 0 to 1. Default: `0.01`.

@@ -41,7 +41,6 @@ var TextClamp = function (_PureComponent) {
     };
     _this.textContainer = _react2.default.createRef();
     _this.handleResize = _this.checkForResize.bind(_this);
-    window.qqq = _this;
     return _this;
   }
 
@@ -99,7 +98,6 @@ var TextClamp = function (_PureComponent) {
           punctuation = _props2.punctuation,
           gap = _props2.gap,
           reverse = _props2.reverse,
-          prefix = _props2.prefix,
           punctuationChars = _props2.punctuationChars,
           punctuaionCharsAdditional = _props2.punctuaionCharsAdditional;
 
@@ -110,7 +108,7 @@ var TextClamp = function (_PureComponent) {
       var additionalPunctuationChars = punctuaionCharsAdditional && (typeof punctuaionCharsAdditional === 'undefined' ? 'undefined' : _typeof(punctuaionCharsAdditional)) === 'object' ? punctuaionCharsAdditional : [];
 
       var clampedText = _utils2.default.clampLines(text, this.textContainer.current, {
-        ellipsis: ellipsis, splitter: splitter, punctuation: punctuation, reverse: reverse, prefix: prefix,
+        ellipsis: ellipsis, splitter: splitter, punctuation: punctuation, reverse: reverse,
         gap: Number(gap) >= 0 ? Number(gap) : 0.01,
         punctuationChars: [].concat(_toConsumableArray(punctuationChars), _toConsumableArray(additionalPunctuationChars)),
         lines: Math.floor(Number(lines)) ? Math.floor(Number(lines)) : 1
@@ -129,7 +127,6 @@ TextClamp.defaultProps = {
   punctuation: true,
   reverse: false,
   gap: 0.01,
-  prefix: '',
   splitter: ' ',
   element: 'div',
   punctuationChars: [',', '/', '\\', '&', '.', '-', '!', '?', ' ', ';', ':', String.fromCharCode(13), String.fromCharCode(10), String.fromCharCode(9)],
@@ -151,7 +148,6 @@ try {
     punctuation: PropTypes.bool,
     reverse: PropTypes.bool,
     gap: PropTypes.number,
-    prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     element: PropTypes.string,
     punctuationChars: PropTypes.array,
     punctuaionCharsAdditional: PropTypes.array,

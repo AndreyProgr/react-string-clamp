@@ -195,43 +195,38 @@ const constructStringTests = [
   },
   {
     name: 'Test 3 - correct usage',
-    args: ['Some text', '...', ' - '],
-    result: ' - Some text...'
+    args: ['Some text', '...'],
+    result: 'Some text...'
   },
   {
     name: 'Test 4 - correct usage',
-    args: ['.', '.', '.'],
+    args: ['.', '..'],
     result: '...'
   },
   {
     name: 'Test 5 - correct usage, reverse',
-    args: ['.', '.', '.', true],
-    result: '...'
+    args: ['text', 'ellipsis', true],
+    result: 'ellipsistext'
   },
   {
     name: 'Test 6 - correct usage, reverse',
-    args: ['some text', '...', '!', true],
-    result: '...some text!'
+    args: ['some text', '...', true],
+    result: '...some text'
   },
   {
     name: 'Test 7 - incorrect argument',
-    args: ['Some text', NaN, ' - '],
-    result: ' - Some textNaN'
+    args: ['Some text', NaN],
+    result: 'Some textNaN'
   },
   {
-    name: 'Test 8 - incorrect argument',
-    args: ['Some text', undefined, ' - '],
-    result: ' - Some text'
+    name: 'Test 8 - incorrect argument, reverse',
+    args: ['Some text', undefined, true],
+    result: 'Some text'
   },
   {
-    name: 'Test 9 - incorrect arguments',
-    args: [null, false, ',...'],
-    result: ',...nullfalse'
-  },
-  {
-    name: 'Test 10 - incorrect all arguments, reverse',
-    args: [-99, {}, ~true, true],
-    result: '[object Object]-99-2'
+    name: 'Test 9 - incorrect all arguments, reverse',
+    args: [-99, {}, true],
+    result: '[object Object]-99'
   }
 ];
 

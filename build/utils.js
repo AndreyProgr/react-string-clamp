@@ -62,13 +62,12 @@ function createSimilarEl(sample) {
 function constructString() {
   var str = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   var ellipsis = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  var prefix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  var reverse = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  var reverse = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
   if (str === '') {
     return '';
   }
-  return reverse ? '' + ellipsis + str + prefix : '' + prefix + str + ellipsis;
+  return reverse ? '' + ellipsis + str : '' + str + ellipsis;
 }
 
 // normalize param
@@ -105,7 +104,6 @@ function clampLines(text, element, _ref) {
       punctuation = _ref.punctuation,
       gap = _ref.gap,
       reverse = _ref.reverse,
-      prefix = _ref.prefix,
       punctuationChars = _ref.punctuationChars;
 
 
@@ -119,7 +117,7 @@ function clampLines(text, element, _ref) {
   element.appendChild(testEl);
 
   var clampedText = text;
-  testEl.innerHTML = constructString(clampedText, ellipsis, prefix, reverse);
+  testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
 
   var testElHeight = testEl.clientHeight;
   if (testElHeight <= maxHeight) {
@@ -132,14 +130,14 @@ function clampLines(text, element, _ref) {
     clampedText = clamp(text, decrementCoeff, splitter, reverse);
     clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;
 
-    testEl.innerHTML = constructString(clampedText, ellipsis, prefix, reverse);
+    testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
     testElHeight = testEl.clientHeight;
     decrementCoeff -= 0.025;
   }
 
   testEl.remove();
   clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;
-  return constructString(clampedText, ellipsis, prefix, reverse);
+  return constructString(clampedText, ellipsis, reverse);
 }
 
 module.exports = {
