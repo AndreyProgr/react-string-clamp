@@ -56,7 +56,7 @@ var TextClamp = function (_PureComponent) {
 
       return _react2.default.createElement(element || typeof element !== 'string' ? element : 'div', {
         ref: this.textContainer,
-        style: _extends({}, styles, { display: 'block' }),
+        style: _extends({ display: 'block', width: '100%' }, styles),
         onClick: onClick
       }, clampedText);
     }

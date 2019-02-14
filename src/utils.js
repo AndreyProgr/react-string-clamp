@@ -92,37 +92,8 @@ function normalizeObj(obj) {
 }
 
 
-function clampLines(
-  srcStr = '', srcElement = 'div', srcLines = 1, srcEllipsis = '...', srcSplitter = ' ',
-  srcPunctuation = [
-    ',', '/', '\\', '&', '.', '-', '!', '?', ' ', ';', ':',
-    String.fromCharCode(13), String.fromCharCode(10), String.fromCharCode(9)
-  ],
-  srcGap = 0.01, srcReverse = false, srcPunctuationAdditional = []
-) {
-  let str, element, lines, ellipsis, splitter,
-    punctuation, gap, reverse, punctuationChars;
-
-  if (srcStr === undefined) {
-    console.error('React-string-clamp error: string is undefined!');
-    return;
-  }
-  if (typeof srcStr !== 'string' && typeof srcStr !== 'number') {
-    console.error(
-      `React-string-clamp error: string type is ${typeof srcStr}. Expected string or number.`
-    );
-    return;
-  }
-
-  return clampLinesKernel(
-    str, element, lines, ellipsis, splitter,
-    punctuation, gap, reverse, punctuationChars
-  );
-}
-
-
 // returns clamped string for a DOM-element
-function clampLinesKernel(text, element, {
+function clampLines(text, element, {
   lines, ellipsis, splitter, punctuation, gap, reverse, prefix, punctuationChars
 }) {
 

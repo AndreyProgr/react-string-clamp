@@ -18,7 +18,7 @@ class TextClamp extends PureComponent {
     const { clampedText } = this.state;
     return React.createElement(element || typeof element !== 'string' ? element : 'div', {
       ref: this.textContainer,
-      style: { ...styles, display: 'block' },
+      style: { display: 'block', width: '100%', ...styles },
       onClick
     }, clampedText);
   }
