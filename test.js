@@ -1,8 +1,6 @@
 const utils = require('./src/utils.js');
 const assert = require('assert');
 
-const runNormalizeArgsTests = require('./tests/argNormalize');
-
 const runTests = (tests = [], func) => {
   tests.forEach(config => {
 
@@ -285,5 +283,3 @@ describe('#constructString()', () => {
 describe('#normalizeValue()', () => {
   runTests(normalizeValueTests, utils.normalizeValue);
 });
-
-runNormalizeArgsTests();
