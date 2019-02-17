@@ -45,12 +45,10 @@ class TextClamp extends PureComponent {
 
   componentDidMount = () => {
     this.clampText();
-    window.addEventListener('resize', this.putReRenderTasksQueue);
     setInterval(this.sizeGuard, 80);
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener('resize', this.putReRenderTasksQueue);
     setInterval(this.sizeGuard, 80);
   }
 
