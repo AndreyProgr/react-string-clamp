@@ -19,7 +19,8 @@ class TextClamp extends PureComponent {
     const builtInStyles = {
       maxHeight,
       display: 'block',
-      overflowY: 'hidden'
+      overflowY: 'hidden',
+      width: '100%'
     };
 
     return React.createElement(element || typeof element !== 'string' ? element : 'div', {
@@ -29,44 +30,30 @@ class TextClamp extends PureComponent {
     }, clampedText);
   }
 
-  putReRenderTasksQueue = () => {
-    const { lastResizeCallTimestamp, clampTextTimeout } = this.state;
-    if (window.performance.now() > lastResizeCallTimestamp + 130) {
-      this.setState({ clampTextTimeout: null });
-      setTimeout(this.clampText, 0);
-    } else if (!clampTextTimeout) {
-      this.setState({
-        clampTextTimeout: setTimeout(
-          this.clampText, lastResizeCallTimestamp + 130 - window.performance.now()
-        )
-      });
-    }
-  }
-
   componentDidMount = () => {
     this.clampText();
-    setInterval(this.sizeGuard, 80);
+    setInterval(this.sizeGuard, 70);
   }
 
   componentWillUnmount = () => {
-    setInterval(this.sizeGuard, 80);
+    setInterval(this.sizeGuard, 70);
   }
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.state.clampedText !== prevState.clampedText) {
       this.setState({
-        maxHeight: this.textContainer.current.clientHeight
+        maxHeight: this.textContainer.current.scrollHeight
       });
     }
   }
 
   sizeGuard = () => {
     const { latestWidth } = this.state;
-    if (latestWidth !== Math.round(this.textContainer.current.clientWidth)) {
+    if (latestWidth !== Math.round(this.textContainer.current.scrollWidth)) {
       this.setState({
-        latestWidth: Math.round(this.textContainer.current.clientWidth)
+        latestWidth: Math.round(this.textContainer.current.scrollWidth)
       });
-      this.putReRenderTasksQueue();
+      setTimeout(this.clampText, 0);
     }
   }
 

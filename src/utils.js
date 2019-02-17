@@ -101,7 +101,7 @@ function clampLines(text, element, {
   const testEl = createSimilarEl(element, {
     lineHeight: `${20}px`, height: 'auto',
     position: 'absolute', opacity: '0', left: '-1px',
-    width: `${element.clientWidth * (1 - Number(gap))}px`,
+    width: `${element.scrollWidth * (1 - Number(gap))}px`,
     paddingTop: 0, paddingBottom: 0
   });
   element.appendChild(testEl);
@@ -109,7 +109,7 @@ function clampLines(text, element, {
   let clampedText = text;
   testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
 
-  let testElHeight = Math.ceil(testEl.clientHeight);
+  let testElHeight = Math.ceil(testEl.scrollHeight);
   if (testElHeight <= maxHeight) {
     testEl.remove();
     return clampedText;
@@ -121,9 +121,10 @@ function clampLines(text, element, {
     clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;
 
     testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
-    testElHeight = Math.ceil(testEl.clientHeight);
+    testElHeight = Math.ceil(testEl.scrollHeight);
     decrementCoeff -= 0.025;
   }
+  testEl.remove();
 
   clampedText = punctuation
     ? delLastChars(clampedText, punctuationChars, reverse)
