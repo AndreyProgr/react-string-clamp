@@ -17,9 +17,7 @@ class TextClamp extends PureComponent {
     const { styles, element, onClick } = this.props;
     const { clampedText, maxHeight } = this.state;
     const builtInStyles = {
-      maxHeight,
       display: 'block',
-      overflowY: 'hidden',
       width: '100%'
     };
 
@@ -32,11 +30,11 @@ class TextClamp extends PureComponent {
 
   componentDidMount = () => {
     this.clampText();
-    setInterval(this.sizeGuard, 70);
+    setTimeout(this.sizeGuard, 0);
   }
 
   componentWillUnmount = () => {
-    setInterval(this.sizeGuard, 70);
+    setTimeout(this.sizeGuard, 0);
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -55,6 +53,7 @@ class TextClamp extends PureComponent {
       });
       setTimeout(this.clampText, 0);
     }
+    window.requestAnimationFrame(this.sizeGuard);
   }
 
   clampText = () => {

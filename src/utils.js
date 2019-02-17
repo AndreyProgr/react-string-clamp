@@ -122,7 +122,7 @@ function clampLines(text, element, {
 
     testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
     testElHeight = Math.ceil(testEl.scrollHeight);
-    decrementCoeff -= 0.025;
+    decrementCoeff -= 0.02;
   }
   testEl.remove();
 
