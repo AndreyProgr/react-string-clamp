@@ -6,44 +6,73 @@ class TextClamp extends PureComponent {
   constructor() {
     super();
     this.state = {
-      clampedText: ''
+      clampedText: '',
+      lastResizeCallTimestamp: 0,
+      maxHeight: null
     };
     this.textContainer = React.createRef();
-    this.handleResize = this.checkForResize.bind(this);
   }
 
   render() {
     const { styles, element, onClick } = this.props;
-    const { clampedText } = this.state;
+    const { clampedText, maxHeight } = this.state;
+    const builtInStyles = {
+      maxHeight,
+      display: 'block',
+      overflowY: 'hidden'
+    };
+
     return React.createElement(element || typeof element !== 'string' ? element : 'div', {
       ref: this.textContainer,
-      style: { display: 'block', width: '100%', ...styles },
+      style: { ...builtInStyles, ...styles },
       onClick
     }, clampedText);
   }
 
-  componentDidMount() {
-    window.aaa = StrClamper;
-    this.clampText();
-    window.addEventListener('resize', this.handleResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  checkForResize() {
-    const { containerWidth } = this.state;
-    const actualWidth = this.textContainer.current.clientWidth;
-    if (containerWidth !== actualWidth) {
+  putReRenderTasksQueue = () => {
+    const { lastResizeCallTimestamp, clampTextTimeout } = this.state;
+    if (window.performance.now() > lastResizeCallTimestamp + 130) {
+      this.setState({ clampTextTimeout: null });
+      setTimeout(this.clampText, 0);
+    } else if (!clampTextTimeout) {
       this.setState({
-        containerWidth: actualWidth
+        clampTextTimeout: setTimeout(
+          this.clampText, lastResizeCallTimestamp + 130 - window.performance.now()
+        )
       });
-      this.clampText();
     }
   }
 
-  clampText() {
+  componentDidMount = () => {
+    this.clampText();
+    window.addEventListener('resize', this.putReRenderTasksQueue);
+    setInterval(this.sizeGuard, 80);
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('resize', this.putReRenderTasksQueue);
+    setInterval(this.sizeGuard, 80);
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.clampedText !== prevState.clampedText) {
+      this.setState({
+        maxHeight: this.textContainer.current.clientHeight
+      });
+    }
+  }
+
+  sizeGuard = () => {
+    const { latestWidth } = this.state;
+    if (latestWidth !== Math.round(this.textContainer.current.clientWidth)) {
+      this.setState({
+        latestWidth: Math.round(this.textContainer.current.clientWidth)
+      });
+      this.putReRenderTasksQueue();
+    }
+  }
+
+  clampText = () => {
     if (!this || !this.textContainer.current) {
       return;
     }
@@ -69,7 +98,10 @@ class TextClamp extends PureComponent {
       lines:
         Math.floor(Number(lines)) ? Math.floor(Number(lines)) : 1
     });
-    this.setState({ clampedText });
+    this.setState({
+      clampedText,
+      lastResizeCallTimestamp: window.performance.now()
+    });
   }
 }
 

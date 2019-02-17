@@ -97,10 +97,10 @@ function clampLines(text, element, {
   lines, ellipsis, splitter, punctuation, gap, reverse, punctuationChars
 }) {
 
-  const maxHeight = 3 * Number(lines);
+  const maxHeight = 20 * Number(lines);
   const testEl = createSimilarEl(element, {
-    lineHeight: `${3}px`, height: 'auto',
-    position: 'absolute', opacity: '0', left: '-9999px',
+    lineHeight: `${20}px`, height: 'auto',
+    position: 'absolute', opacity: '0', left: '-1px',
     width: `${element.clientWidth * (1 - Number(gap))}px`,
     paddingTop: 0, paddingBottom: 0
   });
@@ -109,7 +109,7 @@ function clampLines(text, element, {
   let clampedText = text;
   testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
 
-  let testElHeight = testEl.clientHeight;
+  let testElHeight = Math.ceil(testEl.clientHeight);
   if (testElHeight <= maxHeight) {
     testEl.remove();
     return clampedText;
@@ -121,11 +121,10 @@ function clampLines(text, element, {
     clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;
 
     testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
-    testElHeight = testEl.clientHeight;
+    testElHeight = Math.ceil(testEl.clientHeight);
     decrementCoeff -= 0.025;
   }
 
-  testEl.remove();
   clampedText = punctuation
     ? delLastChars(clampedText, punctuationChars, reverse)
     : clampedText;
