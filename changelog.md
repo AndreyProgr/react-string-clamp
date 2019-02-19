@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+# v0.2.1
+
+- Added re-rendering on text property change. Bugfix.
+
 # v0.2.0
 
 - Removed «prefix» prop.

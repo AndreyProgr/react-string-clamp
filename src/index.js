@@ -43,6 +43,10 @@ class TextClamp extends PureComponent {
         maxHeight: this.textContainer.current.scrollHeight
       });
     }
+
+    if (prevProps.text !== this.props.text) {
+      this.clampText();
+    }
   }
 
   sizeGuard = () => {
