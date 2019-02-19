@@ -3,7 +3,7 @@
 [![Licence](https://img.shields.io/npm/l/react-string-clamp.svg?colorB=%23)](https://www.npmjs.com/package/react-string-clamp) [![Downloads](https://img.shields.io/npm/dt/react-string-clamp.svg)](https://www.npmjs.com/package/react-string-clamp) [![Build Status](https://travis-ci.org/a-harkovets/react-string-clamp.svg?branch=master)](https://travis-ci.org/a-harkovets/react-string-clamp)
 
 ![](demo.gif)
-*`react-string-clamp` component is on the left. On the right is a regular `div`. Lines property is equal to `2`, other optional props is unset (default values are used). Powered by CSS animations.*
+`react-string-clamp` component is on the left. On the right is a regular `div`. Lines property is equal to `2`, other optional props is unset (default values are used). *Powered by CSS animations.*
 
  - [Source code (GitHub)](https://github.com/a-harkovets/react-string-clamp)
  - [Changelog](https://github.com/a-harkovets/react-string-clamp/blob/master/changelog.md)
@@ -11,7 +11,7 @@
 
 Main features:
 ---
- - Easy to set up and usage - only one required property and 2-3 optional will cover most of use cases.
+ - Easy to use - only one required property and 2-3 optional will cover most of use cases.
  - Automatically runs re-render if component size changed.
  - Supports reverse clamping.
  - Allows you to add any custom css-styles.
