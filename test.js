@@ -1,4 +1,4 @@
-const utils = require('./utils.js');
+const utils = require('./src/utils.js');
 const assert = require('assert');
 
 const runTests = (tests = [], func) => {
@@ -6,7 +6,7 @@ const runTests = (tests = [], func) => {
 
     it(config.name, () => {
       assert.equal(
-        func(...config.args),
+        config.wrapFunc ? config.wrapFunc(func(...config.args)) : func(...config.args),
         config.result
       );
     });
@@ -195,43 +195,68 @@ const constructStringTests = [
   },
   {
     name: 'Test 3 - correct usage',
-    args: ['Some text', '...', ' - '],
-    result: ' - Some text...'
+    args: ['Some text', '...'],
+    result: 'Some text...'
   },
   {
     name: 'Test 4 - correct usage',
-    args: ['.', '.', '.'],
+    args: ['.', '..'],
     result: '...'
   },
   {
     name: 'Test 5 - correct usage, reverse',
-    args: ['.', '.', '.', true],
-    result: '...'
+    args: ['text', 'ellipsis', true],
+    result: 'ellipsistext'
   },
   {
     name: 'Test 6 - correct usage, reverse',
-    args: ['some text', '...', '!', true],
-    result: '...some text!'
+    args: ['some text', '...', true],
+    result: '...some text'
   },
   {
     name: 'Test 7 - incorrect argument',
-    args: ['Some text', NaN, ' - '],
-    result: ' - Some textNaN'
+    args: ['Some text', NaN],
+    result: 'Some textNaN'
   },
   {
-    name: 'Test 8 - incorrect argument',
-    args: ['Some text', undefined, ' - '],
-    result: ' - Some text'
+    name: 'Test 8 - incorrect argument, reverse',
+    args: ['Some text', undefined, true],
+    result: 'Some text'
   },
   {
-    name: 'Test 9 - incorrect arguments',
-    args: [null, false, ',...'],
-    result: ',...nullfalse'
+    name: 'Test 9 - incorrect all arguments, reverse',
+    args: [-99, {}, true],
+    result: '[object Object]-99'
+  }
+];
+
+
+const normalizeValueTests = [
+  {
+    name: 'Test 1.1 - number normalize',
+    args: ['10'],
+    result: 10
   },
   {
-    name: 'Test 10 - incorrect all arguments, reverse',
-    args: [-99, {}, ~true, true],
-    result: '[object Object]-99-2'
+    name: 'Test 1.2 - number normalize',
+    args: ['10.202'],
+    result: 10.202
+  },
+  {
+    name: 'Test 1.3 - number normalize',
+    args: ['010.'],
+    result: 10
+  },
+  {
+    name: 'Test 1.4 - number normalize',
+    args: ['-099990.2'],
+    result: -99990.2
+  },
+  {
+    name: 'Test 1.5 - number normalize',
+    args: [''],
+    result: true,
+    wrapFunc: result => isNaN(result)
   }
 ];
 
@@ -248,4 +273,8 @@ describe('#clamp()', () => {
 
 describe('#constructString()', () => {
   runTests(constructStringTests, utils.constructString);
+});
+
+describe('#normalizeValue()', () => {
+  runTests(normalizeValueTests, utils.normalizeValue);
 });

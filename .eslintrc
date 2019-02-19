@@ -53,7 +53,7 @@
     "no-irregular-whitespace": "warn",
     "no-misleading-character-class": "warn",
     "default-case": "warn",
-    "complexity": ["warn", { "max": 18 }],
+    "complexity": ["off", { "max": 18 }],
     "eqeqeq": "warn",
     "max-classes-per-file": ["warn", 1],
     "no-alert": "warn",

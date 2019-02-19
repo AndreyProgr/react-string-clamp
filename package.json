@@ -1,10 +1,11 @@
 {
   "name": "react-string-clamp",
-  "version": "0.1.3",
-  "description": "This library provides text clamping ReactJS-component.",
-  "main": "index.js",
+  "version": "0.2.0",
+  "description": "Text clamping ReactJS-component.",
+  "main": "build/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "babel src -d build"
   },
   "keywords": [
     "react",
@@ -20,8 +21,15 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "^5.2.0",
+    "@babel/core": "^7.2.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "eslint": "^5.12.1",
+    "jsdom": "^13.2.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^5.2.0",
     "prop-types": "^15.6.2"
   },
   "repository": {
