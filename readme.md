@@ -7,7 +7,8 @@
 
  - [Source code (GitHub)](https://github.com/a-harkovets/react-string-clamp)
  - [Changelog](https://github.com/a-harkovets/react-string-clamp/blob/master/changelog.md)
-#
+
+
 Main features:
 ---
  - Easy to set up and usage - only one required property and 2-3 optional will cover most of use cases.
@@ -18,7 +19,7 @@ Main features:
  - Customizable ellipsis.
  - Deletes punctuation characters before adding ellipsis.
  - Wide range of another optional settings.
-#
+
 Installation
 ---
 With NPM:
@@ -29,7 +30,7 @@ or using YARN:
 ```
 yarn add react-string-clamp
 ```
-#
+
 ## Usage
 
 
@@ -51,7 +52,6 @@ Add `TextClamp` component to your code.
 
 > To prevent unexpected behaviors, do not use this component inside elements which width depends on inner content width (any inline element usually grows up as content becomes bigger). Version 0.2.0 (and higher) has some fixes intended to avoid problems (by stretching element to the full available width), but it would be better not to use this component is a such way.
 
-#
 Optional props
 ---
  - `styles` - object of inline-styles. Default: `{}`.
@@ -77,8 +77,7 @@ Optional props
  - `punctuaionCharsAdditional` - array. Allows you to set additional punctuation chars array. Default: `[]`.
 
 
-#
-License
--
+## License
+
 
 &nbsp;&nbsp;MIT
