@@ -15,7 +15,7 @@ class TextClamp extends PureComponent {
 
   render() {
     const { styles, element, onClick } = this.props;
-    const { clampedText, maxHeight } = this.state;
+    const { clampedText } = this.state;
     const builtInStyles = {
       display: 'block',
       width: '100%'
@@ -37,14 +37,10 @@ class TextClamp extends PureComponent {
     setTimeout(this.sizeGuard, 0);
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.clampedText !== prevState.clampedText) {
-      this.setState({
-        maxHeight: this.textContainer.current.scrollHeight
-      });
-    }
-
-    if (prevProps.text !== this.props.text) {
+  componentDidUpdate = (prevProps) => {
+    if (
+      prevProps !== this.props
+    ) {
       this.clampText();
     }
   }
