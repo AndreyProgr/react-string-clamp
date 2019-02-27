@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+# v0.2.2
+
+- Fixed re-rendering on any property changing.
+- Fixed unmounting error.
+
 # v0.2.1
 
 - Added re-rendering on text property change. Bugfix.
