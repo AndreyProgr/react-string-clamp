@@ -33,10 +33,6 @@ class TextClamp extends PureComponent {
     setTimeout(this.sizeGuard, 0);
   }
 
-  componentWillUnmount = () => {
-    setTimeout(this.sizeGuard, 0);
-  }
-
   componentDidUpdate = (prevProps) => {
     if (
       prevProps !== this.props
