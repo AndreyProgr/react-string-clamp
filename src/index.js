@@ -42,6 +42,10 @@ class TextClamp extends PureComponent {
   }
 
   sizeGuard = () => {
+    if (!this || !this.textContainer.current) {
+      return;
+    }
+
     const { latestWidth } = this.state;
     if (latestWidth !== Math.round(this.textContainer.current.scrollWidth)) {
       this.setState({
@@ -49,6 +53,7 @@ class TextClamp extends PureComponent {
       });
       setTimeout(this.clampText, 0);
     }
+
     window.requestAnimationFrame(this.sizeGuard);
   }
 
