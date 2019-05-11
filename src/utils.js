@@ -45,9 +45,11 @@ function clamp(text, coeff, splitter = '', reverse = false) {
 // returns copy of a DOM-element
 function createSimilarEl(sample, styles = {}) {
   const element = document.createElement(sample.tagName);
-  const sampleStylesText = window.getComputedStyle(sample).cssText;
+  const sampleStyles = window.getComputedStyle(sample);
+  const sampleStylesText = sampleStyles.cssText;
 
   element.style.cssText = sampleStylesText;
+  element.style.maxWidth = sampleStyles.width;
   for (const property in styles) {
     element.style[property] = styles[property];
   }
