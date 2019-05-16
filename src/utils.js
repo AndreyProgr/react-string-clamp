@@ -113,7 +113,7 @@ function clampLines(text, element, {
   let clampedText = text;
   testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
 
-  let testElHeight = Math.ceil(testEl.scrollHeight);
+  let testElHeight = Math.ceil(testEl.scrollHeight) - 1;
   if (testElHeight <= maxHeight) {
     // IE11 compatibility (element.remove() is not supported)
     testEl.parentNode.removeChild(testEl);
@@ -127,7 +127,7 @@ function clampLines(text, element, {
     clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;
 
     testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
-    testElHeight = Math.ceil(testEl.scrollHeight);
+    testElHeight = Math.ceil(testEl.scrollHeight) - 1;
     decrementCoeff -= 0.02;
   }
   // IE11 compatibility (element.remove() is not supported)
