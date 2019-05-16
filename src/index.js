@@ -70,7 +70,7 @@ class TextClamp extends PureComponent {
     }
 
     const additionalPunctuationChars =
-      punctuaionCharsAdditional && typeof punctuaionCharsAdditional === 'object'
+      punctuaionCharsAdditional && Array.isArray(punctuaionCharsAdditional)
         ? punctuaionCharsAdditional
         : [];
 

@@ -3,6 +3,8 @@ function delLastChars(sourceString, chars = [], reverse = false) {
   let finalString = String(sourceString);
   let nextIteration = true;
 
+  if (!chars.length) return finalString;
+
   while (nextIteration) {
     nextIteration = false;
     for (let i = 0; i < chars.length; i++) {
