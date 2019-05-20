@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+# v0.2.3
+
+- IE11 Support.
+- Rendering fix.
+
 # v0.2.2
 
 - Fixed re-rendering on any property changing.
