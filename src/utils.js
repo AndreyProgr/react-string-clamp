@@ -3,6 +3,8 @@ function delLastChars(sourceString, chars = [], reverse = false) {
   let finalString = String(sourceString);
   let nextIteration = true;
 
+  if (!chars.length) return finalString;
+
   while (nextIteration) {
     nextIteration = false;
     for (let i = 0; i < chars.length; i++) {
@@ -45,9 +47,11 @@ function clamp(text, coeff, splitter = '', reverse = false) {
 // returns copy of a DOM-element
 function createSimilarEl(sample, styles = {}) {
   const element = document.createElement(sample.tagName);
-  const sampleStylesText = window.getComputedStyle(sample).cssText;
+  const sampleStyles = window.getComputedStyle(sample);
+  const sampleStylesText = sampleStyles.cssText;
 
   element.style.cssText = sampleStylesText;
+  element.style.maxWidth = sampleStyles.width;
   for (const property in styles) {
     element.style[property] = styles[property];
   }
@@ -109,9 +113,11 @@ function clampLines(text, element, {
   let clampedText = text;
   testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
 
-  let testElHeight = Math.ceil(testEl.scrollHeight);
+  let testElHeight = Math.ceil(testEl.scrollHeight) - 1;
   if (testElHeight <= maxHeight) {
-    testEl.remove();
+    // IE11 compatibility (element.remove() is not supported)
+    testEl.parentNode.removeChild(testEl);
+    // =========================
     return clampedText;
   }
 
@@ -121,10 +127,12 @@ function clampLines(text, element, {
     clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;
 
     testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
-    testElHeight = Math.ceil(testEl.scrollHeight);
+    testElHeight = Math.ceil(testEl.scrollHeight) - 1;
     decrementCoeff -= 0.02;
   }
-  testEl.remove();
+  // IE11 compatibility (element.remove() is not supported)
+  testEl.parentNode.removeChild(testEl);
+  // =========================
 
   clampedText = punctuation
     ? delLastChars(clampedText, punctuationChars, reverse)
