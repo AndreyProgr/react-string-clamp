@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+# v0.2.4
+
+- Fixed rendering bug (font-size > ~20px).
+- Increased accuracy. 
+
 # v0.2.3
 
 - IE11 Support.
