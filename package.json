@@ -1,6 +1,6 @@
 {
   "name": "react-string-clamp",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Text clamping ReactJS-component.",
   "main": "build/index.js",
   "scripts": {
