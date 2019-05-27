@@ -101,13 +101,22 @@ function clampLines(text, element, {
   lines, ellipsis, splitter, punctuation, gap, reverse, punctuationChars
 }) {
 
-  const maxHeight = 20 * Number(lines);
+  let maxHeight = 20 * Number(lines);
   const testEl = createSimilarEl(element, {
     lineHeight: `${20}px`, height: 'auto',
     position: 'absolute', opacity: '0', left: '-1px',
     width: `${element.scrollWidth * (1 - Number(gap))}px`,
     paddingTop: 0, paddingBottom: 0
   });
+
+  const minLineHeight = Math.ceil(
+    Number.parseFloat(testEl.style.fontSize)
+  ) + 10 + Math.trunc(Number.parseFloat(testEl.style.fontSize)) * 0.25;
+  if (minLineHeight > 20) {
+    testEl.style.lineHeight = `${minLineHeight}px`;
+    maxHeight = minLineHeight * Number(lines);
+  }
+
   element.appendChild(testEl);
 
   let clampedText = text;
@@ -128,7 +137,7 @@ function clampLines(text, element, {
 
     testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
     testElHeight = Math.ceil(testEl.scrollHeight) - 1;
-    decrementCoeff -= 0.02;
+    decrementCoeff -= text.length > 1500 ? 0.011 : 0.018;
   }
   // IE11 compatibility (element.remove() is not supported)
   testEl.parentNode.removeChild(testEl);
