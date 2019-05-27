@@ -101,21 +101,13 @@ function clampLines(text, element, {
   lines, ellipsis, splitter, punctuation, gap, reverse, punctuationChars
 }) {
 
-  let maxHeight = 20 * Number(lines);
+  const maxHeight = 200 * Number(lines);
   const testEl = createSimilarEl(element, {
-    lineHeight: `${20}px`, height: 'auto',
+    lineHeight: `${200}px`, height: 'auto',
     position: 'absolute', opacity: '0', left: '-1px',
     width: `${element.scrollWidth * (1 - Number(gap))}px`,
     paddingTop: 0, paddingBottom: 0
   });
-
-  const minLineHeight = Math.ceil(
-    Number.parseFloat(testEl.style.fontSize)
-  ) + 10 + Math.trunc(Number.parseFloat(testEl.style.fontSize)) * 0.25;
-  if (minLineHeight > 20) {
-    testEl.style.lineHeight = `${minLineHeight}px`;
-    maxHeight = minLineHeight * Number(lines);
-  }
 
   element.appendChild(testEl);
 
