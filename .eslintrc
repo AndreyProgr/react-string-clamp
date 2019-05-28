@@ -207,5 +207,6 @@
 
     "one-var": "off",
     "padding-line-between-statements": "off"
-  }
+  },
+  "parser": "babel-eslint"
 }

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-
+import PropTypes from 'prop-types';
 import StrClamper from './utils';
 
 class TextClamp extends PureComponent {
@@ -14,30 +14,39 @@ class TextClamp extends PureComponent {
   }
 
   render() {
-    const { styles, element, onClick } = this.props;
+    const { styles, element, onClick, className } = this.props;
     const { clampedText } = this.state;
     const builtInStyles = {
       display: 'block',
       width: '100%'
     };
 
-    return React.createElement(element || typeof element !== 'string' ? element : 'div', {
-      ref: this.textContainer,
-      style: { ...builtInStyles, ...styles },
-      onClick
-    }, clampedText);
+    return React.createElement(
+      element || typeof element !== 'string' ? element : 'div',
+      {
+        ref: this.textContainer,
+        style: { ...builtInStyles, ...styles },
+        onClick,
+        className
+      },
+      clampedText
+    );
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.clampText();
     setTimeout(this.sizeGuard, 0);
   }
 
-  componentDidUpdate = (prevProps) => {
-    if (
-      prevProps !== this.props
-    ) {
-      this.clampText();
+  componentWillUnmount() {
+    setTimeout(this.sizeGuard, 0);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.clampedText !== prevState.clampedText) {
+      this.setState({
+        maxHeight: this.textContainer.current.scrollHeight
+      });
     }
   }
 
@@ -55,15 +64,22 @@ class TextClamp extends PureComponent {
     }
 
     window.requestAnimationFrame(this.sizeGuard);
-  }
+  };
 
   clampText = () => {
     if (!this || !this.textContainer.current) {
       return;
     }
     const {
-      text, lines, ellipsis, splitter, punctuation, gap, reverse,
-      punctuationChars, punctuaionCharsAdditional
+      text,
+      lines,
+      ellipsis,
+      splitter,
+      punctuation,
+      gap,
+      reverse,
+      punctuationChars,
+      punctuaionCharsAdditional
     } = this.props;
     if (!text) {
       return;
@@ -75,19 +91,19 @@ class TextClamp extends PureComponent {
         : [];
 
     const clampedText = StrClamper.clampLines(text, this.textContainer.current, {
-      ellipsis, splitter, punctuation, reverse,
-      gap:
-        Number(gap) >= 0 ? Number(gap) : 0.01,
-      punctuationChars:
-        [...punctuationChars, ...additionalPunctuationChars],
-      lines:
-        Math.floor(Number(lines)) ? Math.floor(Number(lines)) : 1
+      ellipsis,
+      splitter,
+      punctuation,
+      reverse,
+      gap: Number(gap) >= 0 ? Number(gap) : 0.01,
+      punctuationChars: [...punctuationChars, ...additionalPunctuationChars],
+      lines: Math.floor(Number(lines)) ? Math.floor(Number(lines)) : 1
     });
     this.setState({
       clampedText,
       lastResizeCallTimestamp: window.performance.now()
     });
-  }
+  };
 }
 
 TextClamp.defaultProps = {
@@ -100,31 +116,40 @@ TextClamp.defaultProps = {
   splitter: ' ',
   element: 'div',
   punctuationChars: [
-    ',', '/', '\\', '&', '.', '-', '!', '?', ' ', ';', ':',
-    String.fromCharCode(13), String.fromCharCode(10), String.fromCharCode(9)
+    ',',
+    '/',
+    '\\',
+    '&',
+    '.',
+    '-',
+    '!',
+    '?',
+    ' ',
+    ';',
+    ':',
+    String.fromCharCode(13),
+    String.fromCharCode(10),
+    String.fromCharCode(9)
   ],
   punctuaionCharsAdditional: [],
-  onClick: () => null
+  onClick: () => null,
+  className: ''
 };
 
-let PropTypes;
-try {
-  PropTypes = require('prop-types');
-  TextClamp.propTypes = {
-    text: PropTypes.string.isRequired,
-    styles: PropTypes.object,
-    lines: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    ellipsis: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    splitter: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    punctuation: PropTypes.bool,
-    reverse: PropTypes.bool,
-    gap: PropTypes.number,
-    element: PropTypes.string,
-    punctuationChars: PropTypes.array,
-    punctuaionCharsAdditional: PropTypes.array,
-    onClick: PropTypes.func
-  };
-} catch (err) {
-}
+TextClamp.propTypes = {
+  text: PropTypes.string.isRequired,
+  styles: PropTypes.object,
+  lines: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ellipsis: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  splitter: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  punctuation: PropTypes.bool,
+  reverse: PropTypes.bool,
+  gap: PropTypes.number,
+  element: PropTypes.string,
+  punctuationChars: PropTypes.array,
+  punctuaionCharsAdditional: PropTypes.array,
+  onClick: PropTypes.func,
+  className: PropTypes.string
+};
 
 export default TextClamp;
