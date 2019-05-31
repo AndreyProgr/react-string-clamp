@@ -15,7 +15,7 @@ class TextClamp extends PureComponent {
 
   render() {
     const { styles, element, onClick } = this.props;
-    const { clampedText, maxHeight } = this.state;
+    const { clampedText } = this.state;
     const builtInStyles = {
       display: 'block',
       width: '100%'
@@ -33,19 +33,19 @@ class TextClamp extends PureComponent {
     setTimeout(this.sizeGuard, 0);
   }
 
-  componentWillUnmount = () => {
-    setTimeout(this.sizeGuard, 0);
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.clampedText !== prevState.clampedText) {
-      this.setState({
-        maxHeight: this.textContainer.current.scrollHeight
-      });
+  componentDidUpdate = (prevProps) => {
+    if (
+      prevProps !== this.props
+    ) {
+      this.clampText();
     }
   }
 
   sizeGuard = () => {
+    if (!this || !this.textContainer.current) {
+      return;
+    }
+
     const { latestWidth } = this.state;
     if (latestWidth !== Math.round(this.textContainer.current.scrollWidth)) {
       this.setState({
@@ -53,6 +53,7 @@ class TextClamp extends PureComponent {
       });
       setTimeout(this.clampText, 0);
     }
+
     window.requestAnimationFrame(this.sizeGuard);
   }
 
@@ -69,7 +70,7 @@ class TextClamp extends PureComponent {
     }
 
     const additionalPunctuationChars =
-      punctuaionCharsAdditional && typeof punctuaionCharsAdditional === 'object'
+      punctuaionCharsAdditional && Array.isArray(punctuaionCharsAdditional)
         ? punctuaionCharsAdditional
         : [];
 

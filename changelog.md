@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+# v0.2.4
+
+- Fixed rendering bug (font-size > ~20px).
+- Increased accuracy. 
+
+# v0.2.3
+
+- IE11 Support.
+- Rendering fix.
+
+# v0.2.2
+
+- Fixed re-rendering on any property changing.
+- Fixed unmounting error.
+
+# v0.2.1
+
+- Added re-rendering on text property change. Bugfix.
+
 # v0.2.0
 
 - Removed «prefix» prop.

@@ -3,6 +3,8 @@ function delLastChars(sourceString, chars = [], reverse = false) {
   let finalString = String(sourceString);
   let nextIteration = true;
 
+  if (!chars.length) return finalString;
+
   while (nextIteration) {
     nextIteration = false;
     for (let i = 0; i < chars.length; i++) {
@@ -45,9 +47,11 @@ function clamp(text, coeff, splitter = '', reverse = false) {
 // returns copy of a DOM-element
 function createSimilarEl(sample, styles = {}) {
   const element = document.createElement(sample.tagName);
-  const sampleStylesText = window.getComputedStyle(sample).cssText;
+  const sampleStyles = window.getComputedStyle(sample);
+  const sampleStylesText = sampleStyles.cssText;
 
   element.style.cssText = sampleStylesText;
+  element.style.maxWidth = sampleStyles.width;
   for (const property in styles) {
     element.style[property] = styles[property];
   }
@@ -97,21 +101,24 @@ function clampLines(text, element, {
   lines, ellipsis, splitter, punctuation, gap, reverse, punctuationChars
 }) {
 
-  const maxHeight = 20 * Number(lines);
+  const maxHeight = 200 * Number(lines);
   const testEl = createSimilarEl(element, {
-    lineHeight: `${20}px`, height: 'auto',
+    lineHeight: `${200}px`, height: 'auto',
     position: 'absolute', opacity: '0', left: '-1px',
     width: `${element.scrollWidth * (1 - Number(gap))}px`,
     paddingTop: 0, paddingBottom: 0
   });
+
   element.appendChild(testEl);
 
   let clampedText = text;
   testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
 
-  let testElHeight = Math.ceil(testEl.scrollHeight);
+  let testElHeight = Math.ceil(testEl.scrollHeight) - 1;
   if (testElHeight <= maxHeight) {
-    testEl.remove();
+    // IE11 compatibility (element.remove() is not supported)
+    testEl.parentNode.removeChild(testEl);
+    // =========================
     return clampedText;
   }
 
@@ -121,10 +128,12 @@ function clampLines(text, element, {
     clampedText = punctuation ? delLastChars(clampedText, punctuationChars, reverse) : clampedText;
 
     testEl.innerHTML = constructString(clampedText, ellipsis, reverse);
-    testElHeight = Math.ceil(testEl.scrollHeight);
-    decrementCoeff -= 0.02;
+    testElHeight = Math.ceil(testEl.scrollHeight) - 1;
+    decrementCoeff -= text.length > 1500 ? 0.011 : 0.018;
   }
-  testEl.remove();
+  // IE11 compatibility (element.remove() is not supported)
+  testEl.parentNode.removeChild(testEl);
+  // =========================
 
   clampedText = punctuation
     ? delLastChars(clampedText, punctuationChars, reverse)
