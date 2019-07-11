@@ -14,10 +14,10 @@ Main features:
  - Easy to use - only one required property and 2-3 optional will cover most of use cases.
  - Automatically runs re-render if component size changed.
  - Supports reverse clamping.
- - Allows you to add any custom css-styles.
+ - Allows you to add any custom css-styles (inline or via className).
  - Supports any kind of string splitting rules (words, letters, dashes, etc.).
- - Customizable ellipsis.
  - Deletes punctuation characters before adding ellipsis.
+ - FPS limitation.
  - Wide range of another optional settings.
 
 Installation
