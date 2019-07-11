@@ -55,6 +55,8 @@ Add `TextClamp` component to your code.
 Optional props
 ---
  - `styles` - object of inline-styles. Default: `{}`.
+ 
+ - `className` - class attribute.
 
  - `lines` - maximum number of lines. Default: `1`.
 

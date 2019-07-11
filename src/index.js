@@ -14,7 +14,7 @@ class TextClamp extends PureComponent {
   }
 
   render() {
-    const { styles, element, onClick } = this.props;
+    const { styles, element, onClick, className } = this.props;
     const { clampedText } = this.state;
     const builtInStyles = {
       display: 'block',
@@ -24,7 +24,8 @@ class TextClamp extends PureComponent {
     return React.createElement(element || typeof element !== 'string' ? element : 'div', {
       ref: this.textContainer,
       style: { ...builtInStyles, ...styles },
-      onClick
+      onClick,
+      className
     }, clampedText);
   }
 
@@ -122,7 +123,8 @@ try {
     element: PropTypes.string,
     punctuationChars: PropTypes.array,
     punctuaionCharsAdditional: PropTypes.array,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    className: PropTypes.string
   };
 } catch (err) {
 }
