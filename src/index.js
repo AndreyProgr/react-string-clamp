@@ -59,15 +59,26 @@ class TextClamp extends PureComponent {
   }
 
   clampText = () => {
-    if (!this || !this.textContainer.current) {
-      return;
-    }
+    if (!this || !this.textContainer.current) return;
+
     const {
       text, lines, ellipsis, splitter, punctuation, gap, reverse,
-      punctuationChars, punctuaionCharsAdditional
+      punctuationChars, punctuaionCharsAdditional, maxFPS
     } = this.props;
-    if (!text) {
-      return;
+
+    if (maxFPS && maxFPS >= 1) {
+      const currentTimestamp = window.performance.now();
+      const maxFrameTime = 1000 / Number(maxFPS);
+
+      if (this.lastUpdateTimestamp) {
+        const delay = currentTimestamp - this.lastUpdateTimestamp;
+        if (delay < maxFrameTime) {
+          const timeoutToNextFrame = maxFrameTime - delay;
+          setTimeout(this.clampText, timeoutToNextFrame);
+          return;
+        }
+      }
+      this.lastUpdateTimestamp = currentTimestamp;
     }
 
     const additionalPunctuationChars =
@@ -124,7 +135,11 @@ try {
     punctuationChars: PropTypes.array,
     punctuaionCharsAdditional: PropTypes.array,
     onClick: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    maxFPS: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
   };
 } catch (err) {
 }

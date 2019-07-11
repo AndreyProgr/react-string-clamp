@@ -60,6 +60,8 @@ Optional props
 
  - `lines` - maximum number of lines. Default: `1`.
 
+ - `maxFPS` - frames per second limit. `null`, `false`, `undefined` and value lower than 1 will disable this feature. Default: `undefined`.
+
  - `ellipsis` - ellipsis. Default: `"..."`.
 
  - `reverse` - boolean. If enabled text will be clamped from the other side. Default: `false`.
