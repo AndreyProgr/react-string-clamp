@@ -14,10 +14,10 @@ Main features:
  - Easy to use - only one required property and 2-3 optional will cover most of use cases.
  - Automatically runs re-render if component size changed.
  - Supports reverse clamping.
- - Allows you to add any custom css-styles.
+ - Allows you to add any custom css-styles (inline or via className).
  - Supports any kind of string splitting rules (words, letters, dashes, etc.).
- - Customizable ellipsis.
  - Deletes punctuation characters before adding ellipsis.
+ - FPS limitation.
  - Wide range of another optional settings.
 
 Installation
@@ -55,8 +55,12 @@ Add `TextClamp` component to your code.
 Optional props
 ---
  - `styles` - object of inline-styles. Default: `{}`.
+ 
+ - `className` - class attribute.
 
  - `lines` - maximum number of lines. Default: `1`.
+
+ - `maxFPS` - frames per second limit. `null`, `false`, `undefined` and value lower than 1 will disable this feature. Default: `undefined`.
 
  - `ellipsis` - ellipsis. Default: `"..."`.
 
