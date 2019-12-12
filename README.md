@@ -6,7 +6,7 @@
 `react-string-clamp` component is on the left. On the right is a regular `div`. Lines property is equal to `2`, other optional props is unset (default values are used). *Powered by CSS animations.*
 
  - [Source code (GitHub)](https://github.com/a-harkovets/react-string-clamp)
- - [Changelog](https://github.com/a-harkovets/react-string-clamp/blob/master/changelog.md)
+ - [Changelog](https://github.com/a-harkovets/react-string-clamp/blob/master/CHANGELOG.md)
 
 
 Main features:
