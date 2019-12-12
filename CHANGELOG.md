@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.3.1
+
+- README.md: fixed incorrect link to CHANGELOG.
+
 ## v0.3.0
 
 - `className` property support.
